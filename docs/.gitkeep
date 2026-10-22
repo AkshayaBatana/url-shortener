@@ -1,6 +1,6 @@
 # AWS notes
-- Account ID: 315553918637
+- Account ID: <ACCOUNT_ID>
 - Region: ap-south-1 (Mumbai)
 - DynamoDB table: url-shortener-table
-- DynamoDB ARN: arn:aws:dynamodb:ap-south-1:315553918637:table/url-shortener-table
+- DynamoDB ARN: arn:aws:dynamodb:ap-south-1:<ACCOUNT_ID>:table/url-shortener-table
 - Partition key: short_id (String)
