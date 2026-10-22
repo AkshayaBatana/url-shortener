@@ -1,34 +1,37 @@
 # Serverless URL Shortener
 
-A URL shortener built on AWS serverless services: S3 static frontend, API Gateway HTTP API, three Python Lambda functions and a DynamoDB table. Region: ap-south-1 (Mumbai).
+A URL shortener built on AWS serverless services: an S3 static frontend, an API Gateway HTTP API, three Python Lambda functions and a DynamoDB table. Region: ap-south-1 (Mumbai).
 
 ## Features
 
 - Shorten any http/https URL to a 6-character link
 - Redirect with click counting
 - Statistics endpoint (original URL, clicks, created and last-accessed time)
-- Input validation, JSON error responses, least-privilege IAM, API throttling
+- Input validation and JSON error responses
+- Least-privilege IAM roles, API throttling and 14-day log retention
 
 ## Architecture
-
-See [docs/architecture.md](docs/architecture.md).
 
 | Component | Service |
 |---|---|
 | Frontend | S3 static website (`frontend/`) |
 | API | API Gateway HTTP API `url-shortener-api` |
 | Backend | Lambda `shorten-url`, `redirect-url`, `get-stats` (`backend/`) |
-| Database | DynamoDB `url-shortener-table` (on-demand) |
+| Database | DynamoDB `url-shortener-table` (on-demand capacity) |
+
+Diagram and request flow: [docs/architecture.md](docs/architecture.md)
 
 ## API
 
 | Method | Route | Purpose |
 |---|---|---|
 | POST | `/shorten` | Create a short link |
-| GET | `/{short_id}` | Redirect and count a click |
+| GET | `/{short_id}` | Redirect to the original URL and count a click |
 | GET | `/stats/{short_id}` | Get click statistics |
 
-Full details: [docs/api-reference.md](docs/api-reference.md)
+Request and response details: [docs/api-reference.md](docs/api-reference.md)
+
+Example:
 
 ```bash
 curl -X POST $URL/shorten -H "Content-Type: application/json" -d '{"url":"https://example.com"}'
@@ -36,31 +39,37 @@ curl -X POST $URL/shorten -H "Content-Type: application/json" -d '{"url":"https:
 
 ## Screenshots
 
-**Frontend**
+### Frontend
 
 ![Frontend](docs/screenshot-frontend.png)
 
-**API Gateway routes**
+### API Gateway routes
 
-![API Gateway routes](docs/screenshot-api-routes.png)
+`POST /shorten`
 
-**DynamoDB table**
+![POST /shorten route](docs/url-shortner-api-shorten-route.png)
+
+`GET /{short_id}`
+
+![GET /{short_id} route](docs/url-shortner-api-short-id-route.png)
+
+`GET /stats/{short_id}`
+
+![GET /stats/{short_id} route](docs/url-shortner-api-stats-route.png)
+
+### DynamoDB table
 
 ![DynamoDB table](docs/screenshot-dynamodb.png)
 
 ## Testing
 
-Results of functional, validation and load tests: [docs/test-report.md](docs/test-report.md)
+Functional, validation and load test results: [docs/test-report.md](docs/test-report.md)
 
 ## Repository layout
 
 ```
-backend/    Lambda source code
+backend/    Lambda source code (shorten, redirect, stats)
 frontend/   index.html and app.js
 docs/       architecture, API reference, test report, screenshots
 infra/      infrastructure notes
 ```
-
-## Cleanup
-
-All resources were deleted after the demo to avoid charges (API Gateway, S3 bucket, Lambdas, DynamoDB table, log groups).
