@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    .card {
+      background: #fff;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 520px;
+    }
+    h1 { margin-top: 0; font-size: 24px; }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 12px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #0073bb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:disabled { background: #999; cursor: not-allowed; }
+    #result { margin-top: 20px; word-break: break-all; }
+    .error { color: #c0392b; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>URL Shortener</h1>
+    <input type="text" id="url" placeholder="Paste a long URL (https://...)">
+    <button id="shorten-btn">Shorten</button>
+    <div id="result"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
