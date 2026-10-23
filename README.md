@@ -19,7 +19,7 @@ A URL shortener built on AWS serverless services: an S3 static frontend, an API 
 | Backend | Lambda `shorten-url`, `redirect-url`, `get-stats` (`backend/`) |
 | Database | DynamoDB `url-shortener-table` (on-demand capacity) |
 
-Diagram and request flow: [docs/architecture.md](docs/architecture.md)
+Diagram and request flow: ![docs/architecture.md](docs/architecture.md)
 
 ## API
 
@@ -29,7 +29,7 @@ Diagram and request flow: [docs/architecture.md](docs/architecture.md)
 | GET | `/{short_id}` | Redirect to the original URL and count a click |
 | GET | `/stats/{short_id}` | Get click statistics |
 
-Request and response details: [docs/api-reference.md](docs/api-reference.md)
+Request and response details: ![docs/api-reference.md](docs/api-reference.md)
 
 Example:
 
